@@ -1,8 +1,8 @@
 package main
 
 import (
-	sstable "MangoDB/SSTable"
-	"MangoDB/internal"
+	sstable "mangodb/SSTable"
+	"mangodb/internal"
 	"bufio"
 	"fmt"
 	"log"
@@ -78,22 +78,22 @@ func main() {
 				fmt.Println("Key", args[1], "deleted.")
 			}
 
-		// case "snapshot":
-		// 	snapshot := db.CreateSnapshot()
-		// 	err := snapshot.SaveToFile("snapshot.dat") // or remove argument if method doesn't take one
-		// 	if err != nil {
-		// 		fmt.Println("Error saving snapshot:", err)
-		// 	} else {
-		// 		fmt.Println("Snapshot saved successfully.")
-		// 	}
+		 case "snapshot":
+		 	snapshot := db.CreateSnapshot()
+		 	err := snapshot.SaveToFile("snapshot.dat") // or remove argument if method doesn't take one
+		 	if err != nil {
+		 		fmt.Println("Error saving snapshot:", err)
+		 	} else {
+		 		fmt.Println("Snapshot saved successfully.")
+		 	}
 
-		case "create-snapshot":
-			if len(args) != 1 {
-				fmt.Println("Usage: create-snapshot")
-				continue
-			}
-			_ = db.CreateSnapshot()
-			fmt.Print("Snapshot Created.")
+		//case "create-snapshot":
+		//	if len(args) != 1 {
+		//		fmt.Println("Usage: create-snapshot")
+		//		continue
+		//	}
+		//	_ = db.CreateSnapshot()
+		//	fmt.Print("Snapshot Created.")
 			// err := snap.SaveToFile(args[1])
 			// if err != nil {
 			// 	fmt.Println("Error saving snapshot:", err)
@@ -102,20 +102,20 @@ func main() {
 			// }
 
 		case "restore-snapshot":
-			if len(args) < 2 {
+		    	if len(args) < 2 {
 				fmt.Println("Usage: restore-snapshot <filename>")
 				continue
-			}
-			db.CreateSnapshot().SaveToFile("snapshot.dat")
-			_, err := internal.RestoreSnapshot(args[1])
-			if err != nil {
+		   	 }
+	
+		    	snapshot, err := internal.RestoreSnapshot(args[1])
+		    	if err != nil {
 				fmt.Println("Error restoring snapshot:", err)
 				continue
-			}
-			fmt.Println("Snapshot restored to file ", args[1])
-			// for k, v := range snap.Data {
-			// 	fmt.Printf("%s = %s\n", k, v)
-			// }
+		    	}
+
+		    	db.Restore(snapshot)
+		    	fmt.Println("Snapshot restored successfully from", args[1])
+
 
 		case "exit":
 			fmt.Println("Exiting MangoDB REPL...")
