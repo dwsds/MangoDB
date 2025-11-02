@@ -1,7 +1,7 @@
 package internal
 
 import (
-	sstable "MangoDB/SSTable"
+	sstable "mangodb/SSTable"
 	"bufio"
 	"fmt"
 	"math/rand"
@@ -298,3 +298,4 @@ func (sl *SkipList) GetAll() map[string]string {
 	}
 	return result
 }
+
