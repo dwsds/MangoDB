@@ -1,7 +1,7 @@
 package internal
 
 import (
-	sstable "MangoDB/SSTable"
+	sstable "mangodb/SSTable"
 	"fmt"
 )
 
@@ -101,4 +101,12 @@ func (db *DB) CreateSnapshot() *Snapshot {
 		SSTables: db.sstables,        
 	}
 	return snapshot
+}
+
+
+
+func (db *DB) Restore(snapshot *Snapshot) {
+	db.memtable = snapshot.Memtable
+	db.seq = snapshot.Sequence
+	db.sstables = snapshot.SSTables
 }
