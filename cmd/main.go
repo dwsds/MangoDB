@@ -78,7 +78,7 @@ func main() {
 				fmt.Println("Key", args[1], "deleted.")
 			}
 
-		 case "snapshot":
+		 case "create-snapshot":
 		 	snapshot := db.CreateSnapshot()
 		 	err := snapshot.SaveToFile("snapshot.dat") // or remove argument if method doesn't take one
 		 	if err != nil {
